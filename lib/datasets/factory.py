@@ -31,6 +31,12 @@ for year in ['2015']:
         name = 'coco_{}_{}'.format(year, split)
         __sets[name] = (lambda split=split, year=year: coco(split, year))
 
+from datasets.table_dataset import table_dataset
+table_dataset_devkit_path = './data/table_dataset'
+for split in ['train', 'val']:
+        name = '{}_{}'.format('table_dataset', split)
+        __sets[name] = (lambda split=split: table_dataset(split, table_dataset_devkit_path))
+
 def get_imdb(name):
     """Get an imdb (image database) by name."""
     if not __sets.has_key(name):
