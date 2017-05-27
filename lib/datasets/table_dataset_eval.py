@@ -190,4 +190,4 @@ def table_dataset_eval(detpath,
     prec = tp / np.maximum(tp + fp, np.finfo(np.float64).eps)
     ap = table_dataset_ap(rec, prec, use_07_metric)
 
-return rec, prec, ap
+    return rec, prec, ap

@@ -245,5 +245,5 @@ if __name__ == '__main__':
     from datasets.table_dataset import table_dataset
     d = table_dataset('train', './data/table_dataset')
     res = d.roidb
-from IPython import embed
-embed()
+
+
