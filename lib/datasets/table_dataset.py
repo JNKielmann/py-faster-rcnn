@@ -15,6 +15,7 @@ from fast_rcnn.config import cfg
 
 
 class table_dataset(imdb):
+
     def __init__(self, image_set, devkit_path):
         imdb.__init__(self, image_set)
         self._image_set = image_set
@@ -56,8 +57,9 @@ class table_dataset(imdb):
         image_path = os.path.join(self._data_path, 'Images',
                                   index + self._image_ext)
         assert os.path.exists(image_path), \
-                'Path does not exist: {}'.format(image_path)
+            'Path does not exist: {}'.format(image_path)
         return image_path
+
     def _load_image_set_index(self):
         """
         Load the indexes listed in this dataset's image set file.
@@ -139,10 +141,10 @@ class table_dataset(imdb):
         for ix, obj in enumerate(objs):
             bbox = obj.find('bndbox')
             # Make pixel indexes 0-based
-            x1 = float(bbox.find('xmin').text)
-            y1 = float(bbox.find('ymin').text)
-            x2 = float(bbox.find('xmax').text)
-            y2 = float(bbox.find('ymax').text)
+            x1 = float(bbox.find('xmin').text) - 1
+            y1 = float(bbox.find('ymin').text) - 1
+            x2 = float(bbox.find('xmax').text) - 1
+            y2 = float(bbox.find('ymax').text) - 1
             cls = self._class_to_ind[obj.find('name').text.lower().strip()]
             boxes[ix, :] = [x1, y1, x2, y2]
             gt_classes[ix] = cls
@@ -245,5 +247,3 @@ if __name__ == '__main__':
     from datasets.table_dataset import table_dataset
     d = table_dataset('train', './data/table_dataset')
     res = d.roidb
-
-
